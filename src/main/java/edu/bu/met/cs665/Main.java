@@ -1,31 +1,27 @@
 package edu.bu.met.cs665;
 
-import org.apache.log4j.Logger;
-import edu.bu.met.cs665.example1.Person;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Main {
 
-  private static Logger logger = Logger.getLogger(Main.class);
-
-
   /**
-   * A main method to run examples.
-   * 
-   * @param args not used
+   * A main method to run examples. 
+   * @param args not used 
    */
+
   public static void main(String[] args) {
-    Main m = new Main();
-
-    logger.info(m.doIt());
-
-
-  }
+    GameController_Singleton gameController = GameController_Singleton.getInstance();
+    boolean winConditionMet = false;
 
 
+    gameController.startGame();
 
-  private String doIt() {
-    Person student = new Person("John", "Doe");
-    return student.getLastName() + ',' + student.getLastName();
+    while (!winConditionMet){
+
+    }
+
   }
 
 }
