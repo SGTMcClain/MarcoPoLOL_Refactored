@@ -10,6 +10,9 @@ public class GameController_Singleton {
     private Player player1;
     private Player player2;
 
+    private Gameboard player1_Gameboard;
+    private Gameboard player2_Gameboard;
+
 
     private GameController_Singleton() {
         this.player1 = Player.createNewPlayer();
@@ -49,7 +52,8 @@ public class GameController_Singleton {
         }
 
         //Show Player 1 the gameboard after their selection
-        player1.getGameboard().displayGameboard();
+        player1_Gameboard = player1.getGameboard();
+        player1_Gameboard.displayGameboard();
         //Confirm location with Player 1???
 
         // End Player 1's Turn
@@ -81,7 +85,8 @@ public class GameController_Singleton {
 
         }
         //Show Player 2 the gameboard after their selection
-        player2.getGameboard().displayGameboard();
+        player2_Gameboard = player2.getGameboard();
+        player2_Gameboard.displayGameboard();
         //Confirm location with Player 2???
 
         // End Player 2's Turn
@@ -90,6 +95,8 @@ public class GameController_Singleton {
         System.out.println("|-------------------------|");
 
         //Game Successfully Started Go to Game Loop
+
+
     }
 
     //player1's turn
@@ -97,16 +104,79 @@ public class GameController_Singleton {
     //player2's turn
 
     //TODO: Project logic (GAME_LOOP Pattern) goes here
+
+    /**
+     * http://gameprogrammingpatterns.com/game-loop.html
+     * Basic Game Loop Pattern
+     * Game will loop until a winner is decided
+     *
+     */
     public void gameLoop(){  //implement this for the project
-        //Player 1 turn
+        boolean winConditionMet = false;
+        HashMap<String, Integer> coordinates;
+        while(!winConditionMet){
+            //display player2's hitboard to player1
+            player2_Gameboard.displayHitboard();
+            //process player1 fire coordinates
+            System.out.println("\n Player 1 enter your coordinates:");
+            coordinates = getCoordinates();
 
-        //Check player1 win condition
+            //update the gameboard and winCondition
+            winConditionMet = player2_Gameboard.updateGameboard(coordinates.get("x"), coordinates.get("y"));
 
-        //Player 2 turn
 
-        //Check player2 win condition
+            //render player2's hitboard
+            player2_Gameboard.displayHitboard();
 
-        //repeat gameLoop if no win conditions have been reached
+            // End Player 1's Turn
+            System.out.println("\n|-------------------------|");
+            System.out.println(  "|  END PLAYER 1 TURN      |");
+            System.out.println(  "|-------------------------|");
+
+
+            if(!winConditionMet){
+                //display player2's hitboard to player1
+                player1_Gameboard.displayHitboard();
+                //process player1 fire coordinates
+                System.out.println("\n Player 2 enter your coordinates:");
+                coordinates = getCoordinates();
+
+                //update the gameboard and winCondition
+                winConditionMet = player1_Gameboard.updateGameboard(coordinates.get("x"), coordinates.get("y"));
+
+
+                //render player1's hitboard
+                player1_Gameboard.displayHitboard();
+
+                // End Player 2's Turn
+                System.out.println("\n|-------------------------|");
+                System.out.println(  "|  END PLAYER 2 TURN      |");
+                System.out.println(  "|-------------------------|");
+
+                if (!winConditionMet) {
+                    gameLoop();
+
+                } else {
+                    //player 2 wins
+                    System.out.println("\n|-------------------------|");
+                    System.out.println(  "|  PLAYER 2 WINS          |");
+                    System.out.println(  "|-------------------------|");
+
+                    //Start a new game
+                    System.exit(0);
+                }
+
+            } else {
+                //player 1 wins
+                System.out.println("\n|-------------------------|");
+                System.out.println(  "|  PLAYER 1 WINS          |");
+                System.out.println(  "|-------------------------|");
+            }
+        }
+
+        //Start a new game
+        System.exit(0);
+
     }
 
     public HashMap<String, Integer> getCoordinates(){
@@ -114,28 +184,17 @@ public class GameController_Singleton {
         HashMap<String, Integer> coordinates = new HashMap<String, Integer>();
 
         Scanner userInt = new Scanner(System.in);
-        System.out.println("Select x location:");
+        System.out.println("Select x coordinate:");
         //Integer x = userInt.nextInt();
         coordinates.put("x", userInt.nextInt());
 
-        System.out.println("Select y location:");
+        System.out.println("Select y coordinate:");
         coordinates.put("y", userInt.nextInt());
 
         return coordinates;
     }
 
-    public void displayHitboard(){
 
-    }
-
-
-    public void updateGameboards(Player currentPlayer, Player opposingPlayer, int x, int y){
-
-    }
-
-    public void setTileState(TileState tileState){
-
-    }
 
 
 

@@ -10,7 +10,6 @@ public class Player {
     private char[][] playerBoard;
     private char[][] opponentBoard;
     private Gameboard gameboard;
-    private Hitboard hitboard;
 
     private static Player player1;
     private static Player player2;
@@ -18,7 +17,7 @@ public class Player {
     private Player(){
         //this.playerName = playerName;
         this.gameboard = new Gameboard();
-        this.hitboard = new Hitboard();
+
     }
 
     public static Player createNewPlayer(){
@@ -126,26 +125,6 @@ public class Player {
         this.gameboard = gameboard;
     }
 
-    /**
-     * Gets hitboard
-     * Input parameter: None
-     * Output: The hitboard of the Player
-     *
-     * @return value of hitboard
-     */
-    public Hitboard getHitboard() {
-        return hitboard;
-    }
-
-    /**
-     * Sets hitboard
-     * Input Parameter: hitboard
-     * Output: None
-     * Postcondition: The hitboard of the Player was set to the given hitboard
-     */
-    public void setHitboard(Hitboard hitboard) {
-        this.hitboard = hitboard;
-    }
 
     /**
      * Gets player1

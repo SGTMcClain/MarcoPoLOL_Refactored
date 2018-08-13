@@ -6,32 +6,28 @@
 2. Players take turns firing shots by entering grid coordinates
 3. The first player to hit the opponents ship wins
 
-## Assumptions (for class)
+## Assumptions (for project)
 1. A players ship only takes up one space.
 2. The gameboard is 5 x 5
 3. Each player will be able to place a ship onto the gameboard 
-4. Only the starting sequence of the game will be implemented to demonstrate the required design patterns.  The rest of
-the game will be implemented during a later project.
-5. The only portion of the state pattern that is fully implemented is transitioning a water tile to a ship tile.  Missed
-and hit states are implemented but not used since the full gameplay hasn't yet been implemented. 
+4. Players take turns guessing the position of enemy ships to until the opposing players ship is hit
+5
 
-## Patterns used (for class)
-1. **Singleton Pattern** in the GameController_Singleton
-    1. Only one GameController instance is allowed
-2. **State Pattern** in TileState
-    1. Tile States consist of:
-        1. Water
-            1. A water state can transition to either a ship or a miss state
-            2. A water state cannot transition back to a water state
-            3. A water state cannot directly transition to a hit state
-        2. Ship
-            1. A ship state can transition to a hit state
-            2. Once in a ship State a tile cannot transition to any other state
-        3. Miss
-            1. Once in a miss state a tile cannot transition to any other state
-        4. Hit
-            1. Once in a hit state a tile cannot transition to any other stat
-            2. The first player to transition all of their opponents ship tiles to a hit state wins
+
+## Patterns used (for project)
+1. **Game Loop Pattern** in the GameController_Singleton
+    1. In this very basic implementation of a game loop the looping pattern is used to transition between each player
+    and checking the win condition to see if that player succeeded in destroying the other players ship
+    2. In graphical games a similar loop would also run after every frame that is displayed.
+    3. While this is a very simple implementation it demonstrates the power that a loop like this can have.  For instance
+    if instead of battleship the board game this was a graphical game where 2 battleships were firing at each other.
+    Each frame the game loop would check if a projectile entered the collider of the opponents ship and if so it would
+    display a hit animation and do a damage calcualtion.  After doing the damage calculation it would then check to see
+    if that ship had any hit points remaining, change the display of the available hit points and start a sinking
+    animation if there were no hitpoints remaining.
+    4. Even that demonstration is still only a fraction of what the gameloop is checking every frame.  There are still
+    audio systems that need to be maintained, user input that needs to be recognized and executed, and much more.
+
 
 
 ## Project Template

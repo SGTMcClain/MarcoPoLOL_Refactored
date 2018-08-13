@@ -18,9 +18,7 @@ public class Main {
 
     gameController.startGame();
 
-    while (!winConditionMet){
-
-    }
+    gameController.gameLoop();
 
   }
 
