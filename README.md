@@ -1,6 +1,26 @@
 # Marco Po LOL
 #### *A game similar to Battleship*
 
+#REFACTORING (Assignment 6)
+## Code Smells addressed
+1. **Long Method**, **Data Clumps**, and **duplicate code** in the startGame() method in GameController
+    1. This method contained logic that was the exact same for player1 and player2 to setup their Gameboards
+        1. To address this I created a method called setupGameboard that took a player as an argument this cut the code
+        in half and will allow for future updates to only need to happen in one place instead of two.
+    2. While addressing the duplicate logic I also noticed that I was passing around the player and the gameboard.
+        1. To simplify I made the gameboard a part of the Player Class since both players would need to access their 
+        gameboard.
+        2. This logic also had the added benefit of removing the need of having a second gameboard (which I call a 
+        hitboard) to display to the other player as they took their turn.  I just end up covering the ship tile with a
+        water tile in order to obfuscate the ship from the opposing player.
+    3. These changes effectively took the startGame() method from 65 lines of code to 2 lines of code and the method
+    containing all of the logic is now only 16 lines of code
+2. Removed the Fire Class and FireCommand_I (**Speculative Generality**)
+    1. At one point during Assignment 3 I created Fire and FireCommand_I Classes in the anticipation of using the 
+    Command Pattern.  After abandoning this line of thinking I never actually took it out of my code and I had
+    completely forgotten that they were there.
+3. 
+
 ## Basic Gameplay *Alpha Version*
 1. Each player chooses a position for their ship within the 5 x 5 gameboard
 2. Players take turns firing shots by entering grid coordinates

@@ -30,73 +30,34 @@ public class GameController_Singleton {
         //TODO: Have the user choose the gameboard size
         //TODO: Have the user choose the opponent (human vs AI)
 
+        setupGameboard(player1);
+        setupGameboard(player2);
 
-        //TODO: put this logic into a method
+    }
+
+    public void setupGameboard(Player player){
+        Gameboard gameboard = player.getGameboard();
         boolean playerSetupSuccess = false;
         HashMap<String, Integer> coordinates;
         while (!playerSetupSuccess) {
             try {
-                //Show Player 1 the gameboard
-                player1.getGameboard().displayGameboard();
-
+                //Show Player the gameboard
+                gameboard.displayGameboard();
                 //Prompt Player One to place their ship
-                System.out.println("\n Player 1 select where you would like to place your ship");
+                System.out.println("\n " + player.getPlayerName() + " select where you would like to place your ship");
                 coordinates = getCoordinates();
-                player1.getGameboard().initializeGameboard(coordinates.get("x"), coordinates.get("y"));
+                gameboard.initializeGameboard(coordinates.get("x"), coordinates.get("y"));
                 playerSetupSuccess = true;
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Incorrect (x,y) locations please try again\n");
-
             }
-
         }
-
-        //Show Player 1 the gameboard after their selection
-        player1_Gameboard = player1.getGameboard();
-        player1_Gameboard.displayGameboard();
-        //Confirm location with Player 1???
-
-        // End Player 1's Turn
+        //Show Player the gameboard after their selection
+        gameboard.displayGameboard();
+        // End Player's Turn
         System.out.println("\n|-------------------------|");
-        System.out.println("|  END PLAYER 1 SETUP     |");
+        System.out.println("|  END " + player.getPlayerName() + " SETUP     |");
         System.out.println("|-------------------------|");
-        //Scroll Screen???
-
-        //Reset playerSetupSuccess
-        playerSetupSuccess = false;
-
-        //TODO: use method created for player1
-        //Show Player 2 their gameboard
-
-        while (!playerSetupSuccess) {
-            try {
-                //Show Player 1 the gameboard
-                player2.getGameboard().displayGameboard();
-
-                //Prompt Player One to place their ship
-                System.out.println("\n Player 2 select where you would like to place your ship");
-                coordinates = getCoordinates();
-                player2.getGameboard().initializeGameboard(coordinates.get("x"), coordinates.get("y"));
-                playerSetupSuccess = true;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Incorrect (x,y) locations please try again\n");
-
-            }
-
-        }
-        //Show Player 2 the gameboard after their selection
-        player2_Gameboard = player2.getGameboard();
-        player2_Gameboard.displayGameboard();
-        //Confirm location with Player 2???
-
-        // End Player 2's Turn
-        System.out.println("\n|-------------------------|");
-        System.out.println("|  END PLAYER 2 SETUP     |");
-        System.out.println("|-------------------------|");
-
-        //Game Successfully Started Go to Game Loop
-
-
     }
 
     //player1's turn
@@ -114,6 +75,8 @@ public class GameController_Singleton {
     public void gameLoop(){  //implement this for the project
         boolean winConditionMet = false;
         HashMap<String, Integer> coordinates;
+        Gameboard player1_Gameboard = player1.getGameboard();
+        Gameboard player2_Gameboard = player2.getGameboard();
         while(!winConditionMet){
             //display player2's hitboard to player1
             player2_Gameboard.displayHitboard();
